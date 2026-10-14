@@ -1,0 +1,222 @@
+[
+  {
+    "method": "GET",
+    "path": "/tickets",
+    "status_code": 200,
+    "response": [
+      {
+        "ticket_id": 101,
+        "type": "customer_order",
+        "subject": "Bulldog tee",
+        "requester": "Tauhid Zaman",
+        "status": "open"
+      },
+      {
+        "ticket_id": 102,
+        "type": "rent_notice",
+        "subject": "Rent due",
+        "requester": "Elm City Properties",
+        "status": "open"
+      },
+      {
+        "ticket_id": 103,
+        "type": "price_override",
+        "subject": "Bulk hoodie discount",
+        "requester": "Yale AI Club",
+        "status": "open"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/cash",
+    "status_code": 200,
+    "response": {
+      "account": "checking",
+      "balance": 3400.0,
+      "date": "2026-08-31"
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/approvals",
+    "status_code": 200,
+    "response": {
+      "count": 0,
+      "approvals": []
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/events",
+    "status_code": 200,
+    "response": {
+      "count": 10,
+      "events": [
+        {
+          "timestamp": "2026-10-14T19:33:11.247516+00:00",
+          "ticket_id": 102,
+          "agent": "facilities",
+          "step_type": "final_result",
+          "tool_name": null,
+          "args_summary": "Ticket 102, lease_id 1, rent notice. Please verify current lease rent amount and due date/status against desk date and report whether any Facilities action is needed. Do not contact anyone or make payments.",
+          "result_summary": "space='Chapel Street shop' landlord='Elm City Properties' monthly_rent=2400.0 due_date='2026-09-02' status='upcoming (2 days after desk date 2026-08-31)' cash_coverage=True next_step='No immediate Facilities action or payment request is needed. Cash currently covers rent; monitor the upcoming due date.'",
+          "usage": {
+            "requests": 3,
+            "request_tokens": null,
+            "response_tokens": null,
+            "total_tokens": 4398
+          },
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T19:33:04.629615+00:00",
+          "ticket_id": 102,
+          "agent": "boss",
+          "step_type": "delegation",
+          "tool_name": "delegate_to_facilities",
+          "args_summary": "Ticket 102, lease_id 1, rent notice. Please verify current lease rent amount and due date/status against desk date and report whether any Facilities action is needed. Do not contact anyone or make payments.",
+          "result_summary": "dispatched",
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T19:33:02.155117+00:00",
+          "ticket_id": null,
+          "agent": "human",
+          "step_type": "payment_refused",
+          "tool_name": "execute_approved_payment",
+          "args_summary": "{\"approval_id\": 99999, \"approved_by\": \"Dimitri Watat\"}",
+          "result_summary": "No pending_approvals row with id 99999.",
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T19:32:48.333142+00:00",
+          "ticket_id": 102,
+          "agent": "facilities",
+          "step_type": "final_result",
+          "tool_name": null,
+          "args_summary": "Ticket 102 rent notice, lease_id 1. Please check lease/rent records and desk.date_today, determine due date, amount, and whether any action/draft is needed. Report facts and recommended ticket disposition; do not contact anyone.",
+          "result_summary": "space='Chapel Street shop' landlord='Elm City Properties' monthly_rent=2400.0 due_date='2026-09-02' status='upcoming (2 days after desk date 2026-08-31)' cash_coverage=True next_step='Rent is covered by the current checking balance of $3,400. No payment request or draft is needed yet. Ticket 102 remains open to monitor the upcoming due date; no one was contacted.'",
+          "usage": {
+            "requests": 3,
+            "request_tokens": null,
+            "response_tokens": null,
+            "total_tokens": 4294
+          },
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T19:32:41.551386+00:00",
+          "ticket_id": 102,
+          "agent": "boss",
+          "step_type": "delegation",
+          "tool_name": "delegate_to_facilities",
+          "args_summary": "Ticket 102 rent notice, lease_id 1. Please check lease/rent records and desk.date_today, determine due date, amount, and whether any action/draft is needed. Report facts and recommended ticket disposition; do not contact anyone.",
+          "result_summary": "dispatched",
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T19:32:29.438214+00:00",
+          "ticket_id": null,
+          "agent": "human",
+          "step_type": "payment_refused",
+          "tool_name": "execute_approved_payment",
+          "args_summary": "{\"approval_id\": 99999, \"approved_by\": \"Dimitri Watat\"}",
+          "result_summary": "No pending_approvals row with id 99999.",
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T18:21:13.620627+00:00",
+          "ticket_id": null,
+          "agent": "inventory",
+          "step_type": "final_result",
+          "tool_name": null,
+          "args_summary": null,
+          "result_summary": "sku='CC-TEE-WHITE' size='S' on_hand_qty=0 needed_qty=None shortfall=None vendor_options=[] estimated_cost=None draft_po_id=None blockers=['Stock is zero at Aisle B. No quantity requested, so shortfall is not applicable. No purchase order drafted.']",
+          "usage": {
+            "requests": 2,
+            "request_tokens": null,
+            "response_tokens": null,
+            "total_tokens": 3490
+          },
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T18:21:06.566631+00:00",
+          "ticket_id": null,
+          "agent": "inventory",
+          "step_type": "model_call",
+          "tool_name": null,
+          "args_summary": "smoke test start",
+          "result_summary": null,
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T18:20:33.351193+00:00",
+          "ticket_id": null,
+          "agent": "inventory",
+          "step_type": "model_call",
+          "tool_name": null,
+          "args_summary": "smoke test start",
+          "result_summary": null,
+          "usage": null,
+          "stop_reason": null
+        },
+        {
+          "timestamp": "2026-10-14T18:19:49.914927+00:00",
+          "ticket_id": null,
+          "agent": "inventory",
+          "step_type": "model_call",
+          "tool_name": null,
+          "args_summary": "smoke test start",
+          "result_summary": null,
+          "usage": null,
+          "stop_reason": null
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tickets/999/run",
+    "status_code": 404,
+    "response": {
+      "detail": "No ticket found with id 999."
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/approvals/99999/approve",
+    "status_code": 400,
+    "response": {
+      "detail": "No pending_approvals row with id 99999."
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/tickets/102/run",
+    "status_code": 200,
+    "response": {
+      "ticket_id": 102,
+      "status": "resolved",
+      "agents_used": [
+        "Facilities"
+      ],
+      "key_facts": [
+        "Lease 1 is for the Chapel Street shop; monthly rent is $2,400.",
+        "Rent is due 2026-09-02; desk date is 2026-08-31, so it is upcoming in two days.",
+        "Checking balance is $3,400, sufficient to cover the rent."
+      ],
+      "actions_taken": [
+        "Marked ticket resolved.",
+        "No payment was initiated and landlord was not contacted."
+      ],
+      "next_steps": "Monitor the upcoming rent due date."
+    }
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "note": "Built from output/audit_trail.json entries after the Problem 9 reset, plus live MCP tool reads (get_ticket, get_invoice, check_lease_and_cash, get_cash_balance, list_pending_approvals) and a direct read-only check of the empty payments table (no MCP tool exists yet to list payments).",
+  "desk_date_today": "2026-08-31",
+  "tickets": [
+    {
+      "id": 101,
+      "subject": "Bulldog tee",
+      "final_status": "blocked",
+      "outcome": "Not resolved. Inventory confirmed CC-TEE-WHITE size S is out of stock (0 on hand, need 1) and that restock is blocked by the vendor's own open invoice 501 ($840, overdue). Accounting tried to request payment on invoice 501 but the call failed twice due to an infrastructure bug (pending_approvals table temporarily missing); no pending approval was ever created. A later retry re-blocked the ticket without re-attempting the payment request at all, because Boss read the ticket's own stale notes from the failed attempt instead of re-verifying. Invoice 501 is still open and unpaid.",
+      "agent_contributions": {
+        "boss": "Delegated to Inventory, then Accounting; made the final call to mark the ticket blocked.",
+        "inventory": "Checked stock (0 on hand, shortfall 1) and the vendor (Bulldog Print Co, can't ship while invoice 501 is open).",
+        "accounting": "Confirmed invoice 501's amount/due date and the cash balance, then attempted (and failed) to request payment."
+      },
+      "human_approvals": []
+    },
+    {
+      "id": 102,
+      "subject": "Rent due",
+      "final_status": "resolved",
+      "outcome": "Resolved with no payment. Facilities confirmed lease 1 (Chapel Street shop, $2,400/month, due 2026-09-02) is not yet due as of desk date 2026-08-31 (2 days out) and that cash covers it. Per the business rule (only request payment when it's actually time to pay), no payment was requested. The ticket was run multiple times before a frontend bug (fixed during this session) was corrected; each run reconfirmed the same facts.",
+      "agent_contributions": {
+        "boss": "Delegated to Facilities each run; made the final call to mark the ticket resolved once reconfirmed.",
+        "facilities": "Checked the lease and cash balance, judged rent not yet due, and did not request payment."
+      },
+      "human_approvals": []
+    },
+    {
+      "id": 103,
+      "subject": "Bulk hoodie discount",
+      "final_status": "blocked",
+      "outcome": "Not resolved. Customer Service and Inventory confirmed CC-HOOD-NAVY size M has 8 on hand against a request for 20 (shortfall 12), but no bulk-discount policy exists anywhere in the database or MCP tools, so neither agent could determine whether the discount is allowed. No customer-facing draft was produced. This is a genuine data/scope gap, not an agent error.",
+      "agent_contributions": {
+        "boss": "Delegated to Customer Service; made the final call to mark the ticket blocked.",
+        "customer_service": "Checked stock, tried to get a policy ruling (refused by the delegation loop guard since Boss is the ticket's root agent), delegated to Inventory, and ultimately produced no draft reply.",
+        "inventory": "Re-confirmed the stock shortfall and tried (unsuccessfully) to identify a vendor for a possible restock."
+      },
+      "human_approvals": []
+    }
+  ],
+  "human_approvals_summary": {
+    "total_approvals_granted": 0,
+    "note": "No payment was approved anywhere in this exercise. The pending_approvals table has zero rows as of this write-up. The only execute_approved_payment calls in the entire audit trail are old automated test calls against a fake approval id (99999) from an earlier problem's smoke test, which were correctly refused for not existing. Ticket 101's invoice 501 never reached a pending-approval state for a human to act on."
+  },
+  "cash_summary": {
+    "starting_balance": 3400.0,
+    "ending_balance": 3400.0,
+    "total_payments": 0.0,
+    "math_check": "3400.00 - 0.00 = 3400.00, matches the live cash_accounts.balance",
+    "ever_negative": false
+  }
+}

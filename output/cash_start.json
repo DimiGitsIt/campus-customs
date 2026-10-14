@@ -1,0 +1,48 @@
+{
+  "note": "Pre-run snapshot for Problem 9, taken immediately after scripts/reset_db.py. Cash, invoice, and lease values were read via the actual MCP tool functions (get_cash_balance, get_invoice, check_lease_and_cash) in mcp_server/server.py, not raw SQL. There is no MCP tool yet to list all invoices or all payments, so those two were read with a direct read-only SQL query against data/campus_customs_new.db for this audit snapshot only -- flagged here rather than silently treated as having gone through MCP.",
+  "desk_date_today": "2026-08-31",
+  "cash_account": {
+    "name": "checking",
+    "balance": 3400.0,
+    "date": "2026-08-31",
+    "source": "MCP tool get_cash_balance"
+  },
+  "open_invoices": [
+    {
+      "id": 501,
+      "vendor_id": 1,
+      "vendor_name": "Bulldog Print Co",
+      "amount": 840.0,
+      "due_date": "2026-08-28",
+      "status": "open",
+      "description": "Rush reprint CC-TEE-WHITE S",
+      "source": "MCP tool get_invoice(501)"
+    }
+  ],
+  "all_invoices_in_db": [
+    {"id": 501, "vendor_id": 1, "amount": 840.0, "due_date": "2026-08-28", "status": "open"}
+  ],
+  "all_invoices_source": "direct read-only SQL (no MCP list-invoices tool exists yet) - confirms invoice 501 is the only invoice row in the database",
+  "lease": {
+    "id": 1,
+    "space_name": "Chapel Street shop",
+    "landlord": "Elm City Properties",
+    "monthly_rent": 2400.0,
+    "next_due": "2026-09-02",
+    "days_until_due": 2,
+    "status": "upcoming",
+    "cash_covers_rent": true,
+    "source": "MCP tool check_lease_and_cash(1)"
+  },
+  "payments_table": {
+    "rows": [],
+    "note": "Empty, as expected for an original/reset database -- no payment has ever been recorded.",
+    "source": "direct read-only SQL (no MCP list-payments tool exists yet)"
+  },
+  "tickets_snapshot": [
+    {"id": 101, "type": "customer_order", "subject": "Bulldog tee", "status": "open"},
+    {"id": 102, "type": "rent_notice", "subject": "Rent due", "status": "open"},
+    {"id": 103, "type": "price_override", "subject": "Bulk hoodie discount", "status": "open"}
+  ],
+  "tickets_source": "MCP tool get_ticket(101/102/103)"
+}

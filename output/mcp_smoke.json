@@ -1,0 +1,24 @@
+{
+  "problem": "Problem 4 - MCP tool smoke test",
+  "database_checked": "data/campus_customs_new.db",
+  "tests": [
+    {
+      "prompt": "Using the MCP server, how many CC-TEE-WHITE in size S do we have in stock, where is it located, and what's the unit cost and list price?",
+      "tool_called": "mcp__campus-customs__check_stock",
+      "raw_output": {"found": true, "results": [{"sku": "CC-TEE-WHITE", "name": "Classic Bulldog Tee", "size": "S", "qty": 0, "location": "Aisle B", "unit_cost": 8, "list_price": 28}]},
+      "verified": "Matched data/campus_customs_new.db: inventory row (CC-TEE-WHITE, S) has qty=0, location=Aisle B; pricing row (CC-TEE-WHITE) has unit_cost=8.0, list_price=28.0. All values match."
+    },
+    {
+      "prompt": "ok, Using the MCP server, does Bulldog Print Co have an open unpaid invoice, and what is their lead time in days? Would they ship to us right now?",
+      "tool_called": "mcp__campus-customs__check_vendor_status",
+      "raw_output": {"found": true, "vendor": {"id": 1, "name": "Bulldog Print Co", "specialty": "apparel reprint", "lead_days": 5}, "can_ship": false, "open_invoices": [{"id": 501, "amount": 840, "due_date": "2026-08-28", "description": "Rush reprint CC-TEE-WHITE S"}]},
+      "verified": "Matched data/campus_customs_new.db: vendors row id=1 has name=Bulldog Print Co, specialty=apparel reprint, lead_days=5; invoices row id=501 for vendor_id=1 has amount=840.0, due_date=2026-08-28, status=open, description=Rush reprint CC-TEE-WHITE S. All values match."
+    },
+    {
+      "prompt": "ok, Using the MCP server, is the rent for the Chapel Street shop due or overdue as of today's desk date, and do we have enough cash in the account to cover it?",
+      "tool_called": "mcp__campus-customs__check_lease_and_cash",
+      "raw_output": {"found": true, "lease": {"id": 1, "space_name": "Chapel Street shop", "landlord": "Elm City Properties", "monthly_rent": 2400, "next_due": "2026-09-02", "notes": null}, "date_today": "2026-08-31", "days_until_due": 2, "status": "upcoming", "cash_account": {"name": "checking", "balance": 3400, "date": "2026-08-31"}, "cash_covers_rent": true},
+      "verified": "Matched data/campus_customs_new.db: leases row id=1 has space_name=Chapel Street shop, landlord=Elm City Properties, monthly_rent=2400.0, next_due=2026-09-02; desk.date_today=2026-08-31; cash_accounts row 'checking' has balance=3400.0, date=2026-08-31. All values match."
+    }
+  ]
+}

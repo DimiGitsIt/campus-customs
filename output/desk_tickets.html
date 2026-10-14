@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Campus Customs — Desk Tickets</title>
+<style>
+  :root {
+    --black: #051c33;
+    --purple: #00356b;
+    --purple-light: #0f4d8c;
+    --gold: #c9a96e;
+    --gold-light: #e6c66b;
+    --panel: #0a2744;
+    --text: #eef2f7;
+    --muted: #93a8c2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--black);
+    color: var(--text);
+  }
+  header {
+    background: linear-gradient(90deg, var(--black) 0%, var(--purple) 100%);
+    border-bottom: 3px solid var(--gold);
+    padding: 20px 28px;
+  }
+  header h1 {
+    margin: 0;
+    color: var(--gold-light);
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  header p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--panel);
+    padding: 10px 24px 0;
+    border-bottom: 2px solid var(--purple);
+  }
+  .tab-btn {
+    background: var(--panel);
+    color: var(--muted);
+    border: 2px solid var(--purple);
+    border-bottom: none;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: var(--purple);
+    color: var(--gold-light);
+    border-color: var(--gold);
+  }
+  .tab-btn:hover { color: var(--gold-light); }
+  main { padding: 24px 28px 60px; max-width: 1000px; margin: 0 auto; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  section.block {
+    background: var(--panel);
+    border: 1px solid var(--purple);
+    border-left: 5px solid var(--gold);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+  }
+  section.block h2 {
+    margin: 0 0 12px;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  table.facts { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+  table.facts caption {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  table.facts th, table.facts td {
+    text-align: left;
+    padding: 5px 10px;
+    border-bottom: 1px solid #2a2436;
+    font-size: 0.92rem;
+  }
+  table.facts th { color: var(--gold); width: 180px; font-weight: 600; }
+  .flag {
+    background: #3a1f1f;
+    border: 1px solid #c0392b;
+    color: #f5c6c0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .ok-flag {
+    background: #1f3a28;
+    border: 1px solid #2e7d4f;
+    color: #c6f5d6;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+  }
+  .expected-block ul { margin: 6px 0 10px 18px; padding: 0; }
+  .expected-block li { margin-bottom: 4px; font-size: 0.93rem; }
+  .expected-block strong { color: var(--gold-light); }
+  .expected-sub { margin: 10px 0 4px; font-weight: 600; color: var(--gold); font-size: 0.92rem; }
+  textarea.fill-in {
+    width: 100%;
+    min-height: 90px;
+    background: #0f0d15;
+    color: var(--text);
+    border: 1px dashed var(--purple-light);
+    border-radius: 6px;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    resize: vertical;
+  }
+  textarea.fill-in::placeholder { color: var(--muted); font-style: italic; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Campus Customs — Desk Tickets</h1>
+  <p>Problem 6 planning page, filled in for Problem 9 · facts pulled via MCP tools and output/audit_trail.json entries after the reset · desk.date_today = 2026-08-31</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('t101', this)">Ticket 101</button>
+  <button class="tab-btn" onclick="showTab('t102', this)">Ticket 102</button>
+  <button class="tab-btn" onclick="showTab('t103', this)">Ticket 103</button>
+  <button class="tab-btn" onclick="showTab('cash', this)">Cash</button>
+</div>
+
+<main>
+
+  <!-- ===================== TICKET 101 ===================== -->
+  <div id="t101" class="tab-content active">
+
+    <section class="block">
+      <h2>1. Ticket Facts</h2>
+      <table class="facts">
+        <caption>tickets (id 101)</caption>
+        <tr><th>type</th><td>customer_order</td></tr>
+        <tr><th>requester</th><td>Tauhid Zaman</td></tr>
+        <tr><th>subject</th><td>Bulldog tee</td></tr>
+        <tr><th>sku / size / qty</th><td>CC-TEE-WHITE / S / 1</td></tr>
+        <tr><th>lease_id</th><td>null</td></tr>
+        <tr><th>invoice_id</th><td>501</td></tr>
+        <tr><th>status</th><td>open</td></tr>
+        <tr><th>notes</th><td>Needs a tee in size S.</td></tr>
+        <tr><th>created_at</th><td>2026-08-31T09:15:00-04:00</td></tr>
+      </table>
+      <table class="facts">
+        <caption>inventory / pricing (CC-TEE-WHITE, size S)</caption>
+        <tr><th>qty</th><td>0</td></tr>
+        <tr><th>location</th><td>Aisle B</td></tr>
+        <tr><th>unit_cost</th><td>$8.00</td></tr>
+        <tr><th>list_price</th><td>$28.00</td></tr>
+      </table>
+      <table class="facts">
+        <caption>invoices (id 501, linked via invoice_id)</caption>
+        <tr><th>vendor_id</th><td>1 — Bulldog Print Co (specialty: apparel reprint, lead_days: 5)</td></tr>
+        <tr><th>amount</th><td>$840.00</td></tr>
+        <tr><th>due_date</th><td>2026-08-28 (3 days before desk.date_today — overdue)</td></tr>
+        <tr><th>status</th><td>open (unpaid — blocks this vendor from shipping)</td></tr>
+        <tr><th>description</th><td>Rush reprint CC-TEE-WHITE S</td></tr>
+      </table>
+    </section>
+
+    <section class="block expected-block">
+      <h2>2. Expected</h2>
+      <div class="ok-flag">✅ Matches actual ticket data — this is the customer-order/shortfall/open-invoice pattern you guessed.</div>
+      <p><strong>Boss calls first:</strong> Inventory, because whether the order can be filled depends on stock.</p>
+      <p class="expected-sub">Delegations</p>
+      <ul>
+        <li>Boss → Inventory (is there enough stock?).</li>
+        <li>Inventory → Accounting, only if stock is short and the vendor has an open unpaid invoice, because that blocks shipping.</li>
+        <li>Boss → Customer Service, after the facts are known, to draft the reply.</li>
+        <li>Customer Service → Inventory, only if it needs lead time or stock it doesn't have.</li>
+      </ul>
+      <p class="expected-sub">MCP tools expected</p>
+      <ul>
+        <li>get_ticket, check_stock, check_vendor_status, draft_purchase_order (only if the vendor can ship), draft_customer_message, update_ticket_status.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>3. Actual</h2>
+      <textarea class="fill-in">Boss called Inventory first (get_ticket, then delegate_to_inventory) - matches Expected.
+
+Inventory used: check_stock(CC-TEE-WHITE, S, requested_qty=1) -> qty 0, shortfall 1; get_invoice(501) -> Bulldog Print Co, $840, open; check_vendor_status(vendor_name="Bulldog") -> not found (wrong lookup); check_vendor_status(vendor_id=1) -> found, can_ship=false (blocked by open invoice 501).
+
+Boss then delegated to Accounting (matches Expected).
+
+Accounting used: get_invoice(501); get_cash_balance(checking) -> $3,400 (this tool didn't exist until it was added to Accounting's toolset mid-Problem-9 - earlier runs this session had Accounting fail here with "I could not check cash"); then request_payment(kind=invoice, ref_id=501, amount=840, account=checking, ticket_id=101) - this FAILED twice in a row with "no such table: pending_approvals" (an infrastructure bug from a stray database reset during this session's own bug-fixing, documented in harness.md's Problem 9 fixes log - not a logic error by Accounting). No pending approval was ever created on this attempt.
+
+Boss called update_ticket_status(101, blocked, note) and ended the ticket blocked.
+
+A LATER retry (after the backend was restarted and the missing-table bug was fixed) did NOT re-attempt anything: Boss read the ticket's own accumulated notes from the failed attempt above, concluded nothing had changed, and re-blocked the ticket immediately - zero delegations, zero tool calls besides get_ticket/update_ticket_status (agents_used: []). This is a real, separate finding, also logged in harness.md.
+
+FINAL OUTCOME: ticket 101 remains blocked. No purchase order was drafted (correctly - restock is blocked by the vendor's own open invoice regardless). No payment was ever successfully requested, so there was nothing for a human to approve, and nothing was approved. Invoice 501 is still open/unpaid as of this write-up.
+
+MCP tools actually used: get_ticket, check_stock, get_invoice, check_vendor_status (x2, one a bad lookup), get_cash_balance, request_payment (failed x2), update_ticket_status.</textarea>
+    </section>
+
+    <section class="block">
+      <h2>4. Cash</h2>
+      <textarea class="fill-in" placeholder="See the dedicated Cash tab for the full starting-balance / per-ticket / ending-balance accounting and math check. Short version for this ticket: no cash moved - invoice 501's $840 was never actually requested for payment due to the infra bug above, so there was nothing to approve."></textarea>
+    </section>
+
+    <section class="block">
+      <h2>5. Reflection</h2>
+      <textarea class="fill-in">The agents got the facts right but couldn't finish the job. Boss → Inventory first matched my Expected, but then the Boss, not Inventory, sent the ticket to Accounting. Accounting confirmed invoice 501 ($840) was overdue and that cash covered it ($3,400 → $2,560). Then request_payment crashed because the pending_approvals table was missing after the reset. The ticket stayed blocked instead of faking success, so the Cash tab shows no change. The Customer Service reply I expected was never drafted. Splitting the work across agents made sense here, because keeping request_payment with Accounting gives each agent only the tools it needs. With the current tools, the team could also run a weekly restock sweep (check_stock, check_vendor_status, draft_purchase_order). It couldn't receive a shipment once the vendor ships, though. That would need a receive_shipment tool that writes to inventory, owned by the Inventory agent.</textarea>
+    </section>
+
+  </div>
+
+  <!-- ===================== TICKET 102 ===================== -->
+  <div id="t102" class="tab-content">
+
+    <section class="block">
+      <h2>1. Ticket Facts</h2>
+      <table class="facts">
+        <caption>tickets (id 102)</caption>
+        <tr><th>type</th><td>rent_notice</td></tr>
+        <tr><th>requester</th><td>Elm City Properties</td></tr>
+        <tr><th>subject</th><td>Rent due</td></tr>
+        <tr><th>sku / size / qty</th><td>null / null / null</td></tr>
+        <tr><th>lease_id</th><td>1</td></tr>
+        <tr><th>invoice_id</th><td>null</td></tr>
+        <tr><th>status</th><td>open</td></tr>
+        <tr><th>notes</th><td>Email: shop rent due in 2 days.</td></tr>
+        <tr><th>created_at</th><td>2026-08-31T11:05:00-04:00</td></tr>
+      </table>
+      <table class="facts">
+        <caption>leases (id 1, linked via lease_id)</caption>
+        <tr><th>space_name</th><td>Chapel Street shop</td></tr>
+        <tr><th>landlord</th><td>Elm City Properties</td></tr>
+        <tr><th>monthly_rent</th><td>$2,400.00</td></tr>
+        <tr><th>next_due</th><td>2026-09-02 (2 days after desk.date_today — upcoming, not yet overdue)</td></tr>
+        <tr><th>notes</th><td>null</td></tr>
+      </table>
+      <table class="facts">
+        <caption>cash_accounts</caption>
+        <tr><th>checking balance</th><td>$3,400.00 (as of 2026-08-31)</td></tr>
+      </table>
+    </section>
+
+    <section class="block expected-block">
+      <h2>2. Expected</h2>
+      <div class="flag">
+        ⚠️ <strong>Contradicts actual data.</strong> You labeled this section "Ticket 102 (unpaid invoice or restock)" and guessed 102 would be tied to an open vendor invoice. The real ticket 102 is a <strong>rent_notice</strong> tied to <strong>lease_id 1</strong> (Chapel Street shop) — it has no <code>invoice_id</code> at all. Your text below is kept exactly as you wrote it, per your instructions, but it describes the wrong ticket type for 102: there's no invoice here for Accounting to check as overdue, and no vendor-shipping block to report. (Your rent-themed text is actually the right shape for what ticket 102 really is — see the note at the bottom of this box.)
+      </div>
+      <p><strong>Boss calls first:</strong> Accounting, because the key question is whether the invoice is overdue and cash covers it.</p>
+      <p class="expected-sub">Delegations</p>
+      <ul>
+        <li>Boss → Accounting.</li>
+        <li>Accounting → Inventory, only if it needs to know what the invoice unlocks, such as the restock that's blocked.</li>
+        <li>Possibly Boss → Customer Service, if a customer is waiting on the blocked restock.</li>
+      </ul>
+      <p class="expected-sub">MCP tools expected</p>
+      <ul>
+        <li>get_ticket, get_invoice, check_lease_and_cash (for the cash balance), check_vendor_status, request_payment, update_ticket_status.</li>
+      </ul>
+      <div class="flag">
+        Note: the ticket you labeled "Ticket 103 (rent)" below actually describes this ticket (102) correctly — Boss → Facilities → Accounting for rent/lease_id 1. Nothing has been moved between tabs; see the matching flag on the Ticket 103 tab.
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>3. Actual</h2>
+      <textarea class="fill-in">Boss called Facilities first (get_ticket, then delegate_to_facilities) - this is the real rent-pattern delegation (matches the content you'd labeled "Ticket 103 (rent)" in the Expected tab, which actually describes this ticket - see the flag above).
+
+Facilities used check_lease_and_cash(lease_id=1) every time: lease 1 = Chapel Street shop, monthly rent $2,400, next_due 2026-09-02, desk date 2026-08-31 -> status "upcoming" (NOT yet due/overdue), cash_covers_rent=true ($3,400 balance).
+
+This ticket was run multiple separate times on the board (you clicked Run on it more than once before the frontend's run-completion-detection bug was fixed, since it kept appearing stuck on "Running..." even though each run had actually already finished). Each run repeated the same Boss -> Facilities -> update_ticket_status sequence; the ticket's status moved open -> open -> open -> open -> resolved across these runs as Facilities/Boss kept reconfirming the same unchanged facts, finally marking it resolved.
+
+Because rent isn't due for 2 more days, Facilities correctly chose NOT to delegate to Accounting and NOT to request payment - this is the business rule working as intended ("if rent needs paying, delegate to Accounting"; it doesn't need paying yet). No pending approval was ever created for this ticket, and none needed to be.
+
+FINAL OUTCOME: ticket 102 is resolved, with zero cash impact - correctly, since rent isn't due yet.
+
+MCP tools actually used (across all runs): get_ticket, check_lease_and_cash, update_ticket_status (called by both Facilities and Boss on each pass).</textarea>
+    </section>
+
+    <section class="block">
+      <h2>4. Cash</h2>
+      <textarea class="fill-in" placeholder="See the dedicated Cash tab for the full accounting. Short version: no cash moved for this ticket - rent isn't due until 2026-09-02, so Facilities/Boss correctly never requested payment."></textarea>
+    </section>
+
+    <section class="block">
+      <h2>5. Reflection</h2>
+      <textarea class="fill-in">Facilities read the lease correctly ($2,400 due 2026-09-02, two days out, against $3,400 in checking) but chose to "monitor," and the Boss marked the ticket resolved with no payment. Cash stayed at $3,400, so this wasn't really resolved. My rent prediction ended up on the wrong tab (103). Compared to it, Boss → Facilities and check_lease_and_cash matched, but Facilities → Accounting and request_payment never happened. This ticket would have been simpler with one agent, since it needed one read and one write. The split left the facts with Facilities and the payment tool with Accounting, and nobody connected them. The current tools could also clear other overdue vendor invoices (get_invoice, request_payment, human approval). They couldn't forecast cash, because cash only goes out and there's no sales data. That would need a sales ledger, record_sale and forecast_cash tools, and a Finance agent.</textarea>
+    </section>
+
+  </div>
+
+  <!-- ===================== TICKET 103 ===================== -->
+  <div id="t103" class="tab-content">
+
+    <section class="block">
+      <h2>1. Ticket Facts</h2>
+      <table class="facts">
+        <caption>tickets (id 103)</caption>
+        <tr><th>type</th><td>price_override</td></tr>
+        <tr><th>requester</th><td>Yale AI Club</td></tr>
+        <tr><th>subject</th><td>Bulk hoodie discount</td></tr>
+        <tr><th>sku / size / qty</th><td>CC-HOOD-NAVY / M / 20</td></tr>
+        <tr><th>lease_id</th><td>null</td></tr>
+        <tr><th>invoice_id</th><td>null</td></tr>
+        <tr><th>status</th><td>open</td></tr>
+        <tr><th>notes</th><td>Student org wants 20 hoodies, size M, asking for a bulk discount.</td></tr>
+        <tr><th>created_at</th><td>2026-08-31T16:55:00-04:00</td></tr>
+      </table>
+      <table class="facts">
+        <caption>inventory / pricing (CC-HOOD-NAVY, size M)</caption>
+        <tr><th>qty</th><td>8 (shortfall of 12 against the requested 20)</td></tr>
+        <tr><th>location</th><td>Aisle A</td></tr>
+        <tr><th>unit_cost</th><td>$22.00</td></tr>
+        <tr><th>list_price</th><td>$58.00</td></tr>
+      </table>
+      <table class="facts">
+        <caption>vendor / invoice / lease links</caption>
+        <tr><th>invoice_id</th><td>null — no invoice tied to this ticket</td></tr>
+        <tr><th>lease_id</th><td>null — unrelated to the lease</td></tr>
+        <tr><th>vendor</th><td>no vendor_id on this ticket; the closest specialty match would be Bulldog Print Co (apparel reprint, lead_days 5) if a restock is opened, but that's inferred, not a foreign-key link</td></tr>
+      </table>
+    </section>
+
+    <section class="block expected-block">
+      <h2>2. Expected</h2>
+      <div class="flag">
+        ⚠️ <strong>Contradicts actual data.</strong> You labeled this section "Ticket 103 (rent)" and guessed 103 would be tied to lease_id 1. The real ticket 103 is a <strong>price_override</strong> request (bulk hoodie discount) for <strong>CC-HOOD-NAVY, size M, qty 20</strong> — it has no <code>lease_id</code> and no <code>invoice_id</code> at all; stock is only 8 of the 20 requested. Your text below is kept exactly as you wrote it, per your instructions, but it describes the wrong ticket type for 103: there's no lease for Facilities to check here, and no rent payment to route through Accounting.
+      </div>
+      <p><strong>Boss calls first:</strong> Facilities, because the lease is the subject.</p>
+      <p class="expected-sub">Delegations</p>
+      <ul>
+        <li>Boss → Facilities.</li>
+        <li>Facilities → Accounting, to request payment approval. Facilities isn't allowed to request payments itself.</li>
+      </ul>
+      <p class="expected-sub">MCP tools expected</p>
+      <ul>
+        <li>get_ticket, check_lease_and_cash, request_payment (by Accounting), update_ticket_status.</li>
+      </ul>
+      <div class="flag">
+        Note: this is the rent/lease pattern — it actually matches real ticket 102, not 103. See the matching flag on the Ticket 102 tab.
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>3. Actual</h2>
+      <textarea class="fill-in">Boss delegated directly to Customer Service (not Facilities - this ticket isn't about the lease at all; see the Expected-tab flag).
+
+Customer Service used get_ticket(103) and check_stock(CC-HOOD-NAVY, M, requested_qty=20) -> 8 on hand, shortfall 12, list price $58. It then tried to delegate_to_boss for a ruling on whether the bulk discount is allowed - REFUSED by the delegation loop guard ("boss is already working this ticket"), since Boss is the root of this ticket's delegation tree. Customer Service then delegated to Inventory instead.
+
+Inventory re-ran check_stock (same result), tried check_vendor_status(vendor_name="Yale Apparel") -> not found (there's no real vendor tied to this ticket - that name was guessed), and also tried delegate_to_boss - refused by the same loop guard.
+
+Neither agent could find a bulk-discount policy anywhere in the database or tools, because none exists - there is no MCP tool or table representing a discount policy. Customer Service's final result has draft_text=None: no customer-facing message was ever drafted, because it had no policy answer to give Yale AI Club.
+
+Boss called update_ticket_status(103, blocked, note).
+
+FINAL OUTCOME: ticket 103 remains blocked. No draft, no payment, no vendor order. This is a genuine data/scope gap (no discount-policy table or tool exists anywhere in this project), not an agent malfunction or a bug to fix - it's correctly reported as unresolved.
+
+MCP tools actually used: get_ticket (x2, once by Customer Service, once implicitly via Inventory's own check), check_stock (x2), check_vendor_status (x1, not-found).</textarea>
+    </section>
+
+    <section class="block">
+      <h2>4. Cash</h2>
+      <textarea class="fill-in" placeholder="See the dedicated Cash tab. Not applicable here - this ticket is a discount request, not a payment, and it ended blocked with no purchase order drafted, so no cash was ever at stake."></textarea>
+    </section>
+
+    <section class="block">
+      <h2>5. Reflection</h2>
+      <textarea class="fill-in">This was the weakest run. I had no real prediction for it: the 103 tab held my rent plan, and the invoice plan on the 102 tab didn't fit either, so I should have written my predictions from the actual ticket rows. The run went Boss → Customer Service → Inventory. Both sub-agents tried to ask the Boss about discount policy, and the loop guard refused them. Inventory also looked up a vendor ("Yale Apparel") that doesn't exist. No reply was drafted, the ticket ended blocked, and no cash moved. One agent with check_stock and draft_customer_message would have been simpler, since the decision would never have had to travel back up. The current tools could answer "when will my size be back?" (check_stock, the vendor's lead_days, draft_customer_message). They couldn't decide discounts. That would need a discount-policy table, get_discount_policy and apply_price_override tools with a margin floor and human approval, and a Pricing agent.</textarea>
+    </section>
+
+  </div>
+
+  <!-- ===================== CASH ===================== -->
+  <div id="cash" class="tab-content">
+
+    <section class="block">
+      <h2>Starting balance</h2>
+      <table class="facts">
+        <tr><th>checking balance</th><td>$3,400.00</td></tr>
+        <tr><th>as of</th><td>2026-08-31 (desk.date_today)</td></tr>
+        <tr><th>source</th><td>output/cash_start.json, captured via the get_cash_balance MCP tool before any ticket was run</td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Per-ticket cash changes</h2>
+      <table class="facts">
+        <caption>Ticket 101 - Bulldog tee / invoice 501</caption>
+        <tr><th>Payment made?</th><td>No</td></tr>
+        <tr><th>What it would have been</th><td>Invoice 501 to Bulldog Print Co, $840.00</td></tr>
+        <tr><th>Why no cash moved</th><td>Accounting's request_payment call failed twice with "no such table: pending_approvals" (an infra bug hit during this session), so no pending approval was ever created. A later retry re-blocked the ticket without even attempting the payment request again (see harness.md). Invoice 501 is still open.</td></tr>
+        <tr><th>Payments row id</th><td>none</td></tr>
+      </table>
+      <table class="facts">
+        <caption>Ticket 102 - Rent due / lease 1</caption>
+        <tr><th>Payment made?</th><td>No</td></tr>
+        <tr><th>What it would have been</th><td>Rent to Elm City Properties, $2,400.00</td></tr>
+        <tr><th>Why no cash moved</th><td>Rent is due 2026-09-02, which is still 2 days after desk.date_today (2026-08-31) - Facilities/Boss correctly judged it's not due yet and chose not to request payment. This is the rule working as intended, not a failure.</td></tr>
+        <tr><th>Payments row id</th><td>none</td></tr>
+      </table>
+      <table class="facts">
+        <caption>Ticket 103 - Bulk hoodie discount</caption>
+        <tr><th>Payment made?</th><td>Not applicable</td></tr>
+        <tr><th>What it would have been</th><td>n/a - this ticket is a discount request, not an invoice or rent payment</td></tr>
+        <tr><th>Why no cash moved</th><td>No bulk-discount policy exists anywhere in the data/tools, so the ticket ended blocked with no draft, no restock order, and nothing for Accounting to act on.</td></tr>
+        <tr><th>Payments row id</th><td>none</td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Ending balance and math check</h2>
+      <table class="facts">
+        <tr><th>Starting balance</th><td>$3,400.00</td></tr>
+        <tr><th>Total payments (payments table)</th><td>$0.00 - the payments table has zero rows</td></tr>
+        <tr><th>Starting balance − total payments</th><td>$3,400.00 − $0.00 = $3,400.00</td></tr>
+        <tr><th>Actual cash_accounts.balance right now</th><td>$3,400.00 (confirmed live via the get_cash_balance MCP tool)</td></tr>
+        <tr><th>Check</th><td><strong>$3,400.00 = $3,400.00 — matches.</strong></td></tr>
+        <tr><th>Ever negative?</th><td>No - the balance never changed at all, so it never had the chance to go negative.</td></tr>
+        <tr><th>Each paid invoice/lease updated?</th><td>Not applicable - no invoice or lease was ever actually paid. Invoice 501 is still status="open" in the database; the lease has no payment-status field to begin with. There is nothing to confirm was "updated" because no payment ever executed.</td></tr>
+      </table>
+      <div class="flag">
+        ⚠️ <strong>Flag for you:</strong> no payment was approved during this exercise, despite the plan to run all three tickets and approve payments as a human. I checked the full audit trail and the live database directly: the only <code>execute_approved_payment</code> calls anywhere in the whole trail are old test calls against a fake approval id (99999) from an earlier problem's automated smoke test, which were correctly refused. The <code>pending_approvals</code> table has zero rows right now. Nothing was ever actually available to click "Approve" on for real, for invoice 501 or anything else - see the Actual section on the Ticket 101 tab and the Problem 9 fixes log in output/harness.md for exactly why.
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer>
+  Campus Customs — Problem 6 planning page. No database writes, no files loaded from disk at runtime.
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(function (el) {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(function (el) {
+      el.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

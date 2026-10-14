@@ -1,0 +1,10 @@
+data/*
+!data/*.db
+.env
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/
+data.zip

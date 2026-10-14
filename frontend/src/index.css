@@ -1,0 +1,43 @@
+/* Yale navy/gold palette, reused from output/desk_tickets.html for visual
+   consistency across the project (see output/design.md). */
+:root {
+  --black: #051c33;
+  --purple: #00356b; /* navy accent */
+  --purple-light: #0f4d8c;
+  --gold: #c9a96e;
+  --gold-light: #e6c66b;
+  --panel: #0a2744;
+  --text: #eef2f7;
+  --muted: #93a8c2;
+  --green: #4caf50;
+  --red: #e05263;
+
+  color-scheme: dark;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--black);
+  color: var(--text);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
